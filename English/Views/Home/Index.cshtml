@@ -1,0 +1,61 @@
+﻿@model List<English.Data.Lesson>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class=""></div>
+</div>
+<div class="row">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên bài</th>
+                <th scope="col">Tiếng việt</th>
+                <th scope="col">Cập nhật</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var lesson in Model)
+            {
+                <tr>
+                    <th scope="row">@lesson.id</th>
+                    <td>
+                        <a asp-action="Learn" asp-controller="Home" asp-route-id="@lesson.id">
+                            @lesson.title
+                        </a>
+                    </td>
+                    <td style="max-width:500px">
+                        @if (lesson.vietnamese_text != null && lesson.vietnamese_text.Length >= 100)
+                        {
+                            <span>@Html.Raw(lesson.vietnamese_text.Substring(0, 100))</span>
+                        }
+                        else
+                        {
+                            <span>@Html.Raw(lesson.vietnamese_text)</span>
+                        }
+                    </td>
+                    <td>@lesson.date_modified</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Home" asp-route-id="@lesson.id">
+                            <div class="btn btn-primary" style="margin-top : 10px;">
+                                Sửa
+                            </div>
+                        </a>
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@lesson.id">
+                            <div class="btn btn-danger" style="margin-top : 10px;">Xoá</div>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+

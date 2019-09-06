@@ -1,0 +1,53 @@
+﻿@model English.Data.Lesson
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        Vue.component('language', {
+            props: ['name'],
+            template: `<div class="col-sm-12">
+                            <textarea :id="name" rows=10 :name="name" style="width:100%"></textarea>
+                        </div>`
+        });
+
+        Vue.component('Button-Submit', {
+            props: ['name'],
+            template: `<div class="col-sm-12">
+                            <textarea :id="name" :name="name"></textarea>
+                        </div>`
+        });
+        new Vue({
+            el: '#app'
+        });
+    </script>
+}
+<form asp-action="Edit" asp-controller="Home" method="post">
+    <input type="hidden" name="id" value="@Model.id" />
+    <input type="hidden" name="date_created" value="@Model.date_created" />
+    <input type="hidden" name="date_modified" value="@Model.date_modified" />
+    <input type="hidden" name="keywords" value="@Model.keywords" />
+
+    <div class="row">
+        <div class="col-sm-12">
+            <input class="form-control" type="text" name="title" placeholder="Nhập tiêu đề" style="width:100%;" value="@Model.title" required />
+        </div>
+    </div>
+    <div class="row" style="margin-top : 10px;">
+        <div class="col-sm-6">
+            <textarea class="form-control" id="english_text" rows=13 name="english_text" style="width:100%" placeholder="Nhập nội dung english" required>@Model.english_text</textarea>
+        </div>
+        <div class="col-sm-6">
+            <textarea class="form-control" id="vietnamese_text" rows=13 name="vietnamese_text" style="width:100%" placeholder="Nhập bản dịch" required>@Model.vietnamese_text</textarea>
+        </div>
+    </div>
+    <div class="row" style="margin-top : 10px;">
+        <div class="col-sm-10"></div>
+        <div class="col-sm-2" style="position : relative; float:right!important">
+            <button class="btn btn-success" style="float:right">
+                Save
+            </button>
+        </div>
+    </div>
+</form>

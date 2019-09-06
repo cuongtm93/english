@@ -1,0 +1,82 @@
+﻿@model English.Data.Lesson
+@{
+    ViewData["Title"] = "Learn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" style="margin-bottom:10px;">
+    <div class="col-md-10 col-sm-12" id="draft" spellcheck="true" style="font-size:25px ;">
+        <input class="form-control" type="text" rows="1" style="width : 100%;border : 2px solid green ; color:blue;font-size:25px;" id="draft_textarea" tabindex="1" placeholder="Đây là bảng học bài, ấn enter để xoá bảng"></input>
+    </div>
+    <div class="col-md-2 col-sm-12">
+        <div class="row">
+            <div class="btn btn-primary col-md-6 col-sm-6" onclick="toggle()" title="Ctrl + M">Bài</div>
+            <div class="btn btn-success col-md-6 col-sm-6" onclick="toggle()" >Câu</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" id="english" style="font-size : 25px;">
+        <textarea class="form-control" style="width : 100%;height: 450px" id="english_textarea" readonly>@Model.english_text</textarea>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var listener = new window.keypress.Listener();
+
+        listener.simple_combo("control m", function () {
+            console.log("You pressed shift and s");
+            toggle();
+        });
+
+        listener.simple_combo("control p", function () {
+        });
+
+        listener.simple_combo("control s", function () {
+
+        });
+        listener.simple_combo("control a", function () {
+
+        });
+        $("#draft_textarea").keyup(function () {
+            var text = $("#draft_textarea").val();
+            text = $.trim(text);
+            if (text.length == 0) {
+                $('#english').show();
+            } else {
+                $('#english').hide();
+            }
+        });
+        function scrollToLine($textarea, lineNumber) {
+            var lineHeight = parseInt($textarea.css('line-height'));
+            $textarea.scrollTop(lineNumber * lineHeight);
+        }
+
+        function toggle() {
+            $('#english').toggle();
+            $('#draft_textarea').focus();
+        }
+        $(document).ready(function () {
+            $('#draft_textarea').focus();
+            $('#draft_textarea').keypress(function (event) {
+                if (event.which == 13) {
+                    //$('#draft_textarea').html("");
+                    document.getElementById("draft_textarea").value = "";
+                    var english_textarea = $('#english_textarea')[0];
+                    debugger;
+                    if (typeof scrolling_line_number === 'undefined') {
+                        scrolling_line_number = english_textarea.value.substr(0, english_textarea.selectionStart).split("\n").length;
+                        next_scrolling_line_number = scrolling_line_number + 1;
+                    } else {
+                        next_scrolling_line_number = next_scrolling_line_number + 1;
+                    }
+                    console.log(next_scrolling_line_number);
+                    scrollToLine($(english_textarea), next_scrolling_line_number);
+                }
+            });
+        });
+    </script>
+}
+
