@@ -6,20 +6,28 @@
 
 
 <div class="row" style="margin-bottom:10px;">
-    <div class="col-md-10 col-sm-12" id="draft" spellcheck="true" style="font-size:25px ;">
-        <input class="form-control" type="text" rows="1" style="width : 100%;border : 2px solid green ; color:blue;font-size:25px;" id="draft_textarea" tabindex="1" placeholder="Đây là bảng học bài, ấn enter để xoá bảng"></input>
+    <div class="col-md-10 col-sm-12" id="draft" spellcheck="true" style="font-size:15px ;">
+        <input class="form-control" type="text" rows="1" style="width : 100%;border : 1px solid green ; color:blue;font-size:25px;" id="draft_textarea" tabindex="1" placeholder="Đây là bảng học bài, ấn enter để xoá bảng"></input>
     </div>
     <div class="col-md-2 col-sm-12">
         <div class="row">
-            <div class="btn btn-primary col-md-6 col-sm-6" onclick="toggle()" title="Ctrl + M">Bài</div>
-            <div class="btn btn-success col-md-6 col-sm-6" onclick="toggle()" >Câu</div>
+            <div class="btn btn-primary col-md-5 col-sm-6" style="margin-right : 5px" onclick="toggle()" title="Ctrl + M">Học</div>
+            <a asp-action="Edit" asp-controller="Home" asp-route-id="@Model.id" class="col-md-5 col-sm-6">
+                <div class="btn btn-success" onclick="toggle()">
+                    Sửa
+                </div>
+            </a>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-12" id="english" style="font-size : 25px;">
-        <textarea class="form-control" style="width : 100%;height: 450px" id="english_textarea" readonly>@Model.english_text</textarea>
+        <textarea class="form-control" style="width : 100%;height: 450px;font-size: 25px;" id="english_textarea" readonly>@Model.english_text</textarea>
     </div>
+    <div class="col-sm-12" id="english" style="font-size : 25px;">
+        <textarea class="form-control" style="width : 100%;height: 450px;font-size: 25px;" id="english_textarea" readonly>@Model.vietnamese_text</textarea>
+    </div>
+
 </div>
 
 @section Scripts{

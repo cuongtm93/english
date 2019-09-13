@@ -44,7 +44,7 @@
                                 Sửa
                             </div>
                         </a>
-                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@lesson.id">
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@lesson.id" onclick="return confirm('Bạn có thật sự muốn xoá không?');">
                             <div class="btn btn-danger" style="margin-top : 10px;">Xoá</div>
                         </a>
                     </td>
