@@ -7,6 +7,7 @@
     <div class=""></div>
 </div>
 <div class="row">
+    <h3>10 câu trong tổng số <span class="text-danger">@ViewBag.SetencesCount</span> câu</h3>
     <table class="table table-responsive">
         <thead>
             <tr>
@@ -38,14 +39,16 @@
                         }
                     </td>
                     <td>@lesson.date_modified</td>
-                    <td>
-                        <a asp-action="Edit" asp-controller="Home" asp-route-id="@lesson.id">
-                            <div class="btn btn-primary" style="margin-top : 10px;">
-                                Sửa
+                    <td style="width: 155px;">
+                        <a asp-action="Edit" asp-controller="Home" asp-route-id="@lesson.id" title="Sửa '@lesson.title'">
+                            <div class="btn btn-primary">
+                                <i class="fas fa-pencil-alt"></i>
                             </div>
                         </a>
-                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@lesson.id" onclick="return confirm('Bạn có thật sự muốn xoá không?');">
-                            <div class="btn btn-danger" style="margin-top : 10px;">Xoá</div>
+                        <a asp-action="Delete" asp-controller="Home" asp-route-id="@lesson.id" onclick="return confirm('Bạn có thật sự muốn xoá không?');" title="Xoá '@lesson.title'">
+                            <div class="btn btn-danger" style="margin-left : 10px;">
+                            <i class="far fa-trash-alt"></i>
+                            </div>
                         </a>
                     </td>
                 </tr>

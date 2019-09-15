@@ -1,24 +1,23 @@
 ﻿using English.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.EntityFrameworkCore.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class EnglishDbContext : DbContext
 {
-    public EnglishDbContext()
-    {
-
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseMySQL("Server=localhost;Database=english;Uid=root;Pwd=wcufVYF5kH8c3hr;CharSet=utf8;");
-    }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
+        base.OnModelCreating(modelBuilder);
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseMySQL(English.Startup.Configuration.GetValue<string>("connection_string"));
     }
 
     //entities
-    public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<Lesson> lessons { get; set; }
 }

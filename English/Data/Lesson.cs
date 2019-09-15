@@ -28,6 +28,8 @@ namespace English.Data
 
         public DateTime date_modified { get; set; }
 
+        public int viewed { get; set; }
+
         public int deleted { get; set; }
     }
 }

@@ -11,15 +11,26 @@ namespace English.Controllers
     public class HomeController : Controller
     {
         private EnglishDbContext db = new EnglishDbContext();
-        public IActionResult Index()
+        public IActionResult Index(int? page = 1)
         {
-            var model = db.Lessons.ToList();
+            int numberOfObjectsPerPage = 10;
+            ViewBag.SetencesCount = db.lessons.Count();
+
+            var model = db.lessons
+                .Where(r => r.deleted == 0)
+                .OrderByDescending(r => r.viewed)
+                .Skip(numberOfObjectsPerPage * (page.Value - 1))
+                .Take(numberOfObjectsPerPage)
+                .ToList();
+
             return View(model);
         }
 
         public IActionResult Learn(int id)
         {
-            var model = db.Lessons.Find(id);
+            var model = db.lessons.Find(id);
+            model.viewed += 1;
+            db.SaveChanges();
             return View(model);
         }
 
@@ -36,14 +47,14 @@ namespace English.Controllers
             model.date_modified = DateTime.Now;
             model.deleted = 0;
             model.keywords = "";
-            db.Lessons.Add(model);
+            db.lessons.Add(model);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = db.Lessons.Find(id);
+            var model = db.lessons.Find(id);
             return View(model);
         }
         [HttpPost]
@@ -57,10 +68,11 @@ namespace English.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var model = db.Lessons.Find(id);
-            db.Remove(model);
+            var model = db.lessons.Find(id);
+            model.deleted = 1;
+            db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1 });
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
