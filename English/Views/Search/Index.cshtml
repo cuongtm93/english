@@ -14,7 +14,7 @@
         <h5>Thời gian máy @ViewBag.ElapsedMilliseconds miliseconds</h5>
     </div>
     <div class="col-6">
-        <form asp-action="Index" asp-controller="Search">
+        <form asp-action="Index" asp-controller="Search" method="get">
             <input class="control" type="text" style="width:70%" name="keyword" />
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>

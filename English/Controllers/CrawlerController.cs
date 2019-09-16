@@ -49,8 +49,8 @@ namespace English.Controllers
 
         public async Task<JsonResult> IndexAsync()
         {
-            await InsertAsync(6001, 7000);
-            return Json(new { ok = 7000 });
+            await InsertAsync(7001, 8000);
+            return Json(new { ok = 8000 });
         }
     }
 }
