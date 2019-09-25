@@ -23,12 +23,12 @@ namespace English.Controllers
 
             if (string.IsNullOrWhiteSpace(keyword))
                 keyword = "";
-            
+
             ViewBag.SetencesCount = db.lessons.Count();
-            ViewBag.ElapsedMilliseconds = 0;
             var model = new List<Lesson>();
             if (keyword.Length > 3)
             {
+                ViewBag.SetencesCount = db.lessons.Count();
                 var cached = cache.Get(keyword);
                 if (cached != null)
                 {
@@ -45,7 +45,7 @@ namespace English.Controllers
 
                     cache.Set(keyword, model, policy);
                 }
-               
+
 
                 ViewBag.ElapsedMilliseconds = watch.ElapsedMilliseconds;
                 ViewBag.TotalFound = model.Count;

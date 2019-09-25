@@ -11,10 +11,10 @@
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                @*<th scope="col">#</th>*@
                 <th scope="col">Tên bài</th>
                 <th scope="col">Tiếng việt</th>
-                <th scope="col">Cập nhật</th>
+                @*<th scope="col">Cập nhật</th>*@
                 <th scope="col">Hành động</th>
             </tr>
         </thead>
@@ -22,7 +22,7 @@
             @foreach (var lesson in Model)
             {
                 <tr>
-                    <th scope="row">@lesson.id</th>
+                    @*<th scope="row">@lesson.id</th>*@
                     <td>
                         <a asp-action="Learn" asp-controller="Home" asp-route-id="@lesson.id">
                             @lesson.title
@@ -38,7 +38,7 @@
                             <span>@Html.Raw(lesson.vietnamese_text)</span>
                         }
                     </td>
-                    <td>@lesson.date_modified</td>
+                    @*<td>@lesson.date_modified</td>*@
                     <td style="width: 155px;">
                         <a asp-action="Edit" asp-controller="Home" asp-route-id="@lesson.id" title="Sửa '@lesson.title'">
                             <div class="btn btn-primary">

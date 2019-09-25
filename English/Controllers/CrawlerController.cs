@@ -4,17 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using English.Data;
 using HtmlAgilityPack;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace English.Controllers
 {
     public class CrawlerController : Controller
     {
+        private IApplicationLifetime ApplicationLifetime { get; set; }
+        public CrawlerController(IApplicationLifetime appLifetime)
+        {
+            ApplicationLifetime = appLifetime;
+
+        }
         private EnglishDbContext db = new EnglishDbContext();
-        public async Task<bool> InsertAsync(int _from , int _to)
+        public async Task<bool> InsertAsync(int _from, int _to)
         {
             // From Web
-            for (int p = _from  ; p <= _to; p++)
+            for (int p = _from; p <= _to; p++)
             {
                 var url = $"http://tratu.coviet.vn/hoc-tieng-anh/cap-cau-song-ngu/vietgle-tra-tu/tat-ca/trang-{p}.html";
                 var web = new HtmlWeb();
@@ -43,10 +51,14 @@ namespace English.Controllers
                 db.SaveChanges();
                 await Task.Delay(100);
             }
-            
+
             return true;
         }
-
+        public ContentResult Restart()
+        {
+            ApplicationLifetime.StopApplication();
+            return new ContentResult() {  Content = "Đã khởi động"};
+        }
         public async Task<JsonResult> IndexAsync()
         {
             await InsertAsync(7001, 8000);
